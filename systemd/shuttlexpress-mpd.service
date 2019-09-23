@@ -1,0 +1,15 @@
+[Unit]
+Description=ShuttleXpress MPD Client
+After=mpd.service
+
+[Service]
+Type=forking
+PIDFile=/usr/local/var/run/shuttlexpress-mpd.pid
+ExecStart=/usr/local/sbin/shuttlexpress-mpd
+ExecReload=/bin/kill -TERM $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,81 @@
+22-SEP-2019 Matthew J. Wolf Email: matthew.wolf at speciosus.net
+
+Shuttlexpress-MPD is a Music Player Daemon (MPD) client that uses a
+Contour ShuttleXpress to control the status of the playback of an MPD
+instance.
+
+The program is written to run with Linux. 
+
+Production web page for the Contour Shuttle products:
+https://www.contourdesign.com/product/shuttle/
+
+Web page for Music Player Daemon (MPD):
+https://www.musicpd.org
+
+The Contour ShuttleXpress is the small device in the Contour Shuttle products.
+It is a USB device that has five buttons, dial, and a rotation ring.
+
+
+Why Was This Program Created
+----------------------------
+I wanted to use my Griffin Powermate MPD client, Powermate-MPD, on a second
+Linux system. The Griffin Powermate is no longer being produced. I need to find
+a replacement for the Powermate. The ShuttleXpress is what I found as
+substitute for the Powermate.
+
+Actions Taken for ShuttleXpress Inputs Events
+---------------------------------------------  
+- When a button is pushed:
+  -- Button 0: Send the Previous command to MPD.  Move backwards in the MPD
+               play list. 
+  -- Button 1: Send the Play command to MPD.
+  -- Button 2: Send the Pause command to MPD.
+  -- Button 3: Send the Stop command to MPD.
+  -- Button 4: Send the Next command to MPD. Move forward in the MPD play list. 
+
+  The numbering of the buttons is from left to right.
+
+            2
+           1 3 
+          0   4
+
+          Pause
+      Play     Stop
+  Prev             Next
+
+- When the dial is rotated the MPD volume is changed:
+  -- Rotated Right: The audio volume is increased. 
+  -- Rotated Left:  The audio volume is decreased.
+
+- When the ring is rotated random playback is enabled or disabled.
+  -- Rotated Right: Random is enabled.
+  -- Rotated Left:  Random is disabled.
+
+Program Options and Defaults
+----------------------------
+Program Options and Defaults
+----------------------------
+-d Debug
+	Does not demonize and displays message.
+-h MPD Host IP Address
+	The default host address is ::1.
+        ::1 is the IPv6 local host loop-back address
+-p MPD Host Service Port
+	The MPD host service port is 6600.
+-P MPD Polling Interval (Seconds)
+        Default and Minimum is 10 seconds.
+-s Connect to MPD via MPD's default socket.
+        Only works when shuttlexpress-mpd and MPD
+          are running on the same system.
+        Note: MPD's default Unix socket path is
+          a MPD compile time option.
+--help 
+	Display the program usage details
+
+Required Libraries
+------------------
+Core C library
+MPD C Client 
+ - libmpdclient 
+   -- https://www.musicpd.org/libs/libmpdclient
+

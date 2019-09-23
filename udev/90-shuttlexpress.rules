@@ -1,0 +1,2 @@
+ACTION="add", ATTRS{idVendor}=="0b33", ATTRS{idProduct}=="0020", SYMLINK+="shuttlexpress", MODE="0666"
+
