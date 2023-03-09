@@ -2,14 +2,14 @@
  * Music Player Daemon (MPD) Cilent that uses a Contour ShuttleXpress to
  * control MPD
  *
- * Version: 1.0
+ * Version: 1.1
  * Author:  Matthew J Wolf
- * Date:    27-FEB-2019
+ * Date:    09-MAR-2023
  *
  * This file is part of shuttlexpress-mpd.
  * By Matthew J. Wolf <matthew.wolf@speciosus.net>
  *
- * Copyright 2019 Matthew J. Wolf
+ * Copyright 2023 Matthew J. Wolf
  *
  * shuttlexpress-mpd is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by the
@@ -447,6 +447,17 @@ void process_shuttlexpress_event(int fd, struct input_event *ev,
             dial_rotation_delta =
                ( status->dial_rotation - status->dial_rotation_past )
                / (int)DIAL_ROTATION_SCALE;
+
+            // Dial roll over protection.
+            // Roll over to 0 or 255
+            // 255 roll to 0 is -1 delta
+            if ( dial_rotation_delta > 1 ) {
+               dial_rotation_delta = -1;
+            // 0 to 255 is 1 delta
+            } else if ( dial_rotation_delta < -1 ) {
+               dial_rotation_delta = 1;
+            }
+
             if (debug) { printf("   Dial Delta: %d\n",dial_rotation_delta); }
             status->dial_rotation_past = status->dial_rotation;
             status->dial_rotation_count = 0;
